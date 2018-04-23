@@ -1,0 +1,114 @@
+<section class="header-height">
+  <div class="page-header">
+    <h1>User <span ng-bind="user.username"></span></h1>
+  </div>
+
+  <form name="userForm" ng-submit="update(userForm.$valid)" novalidate>
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <label>ชื่อผู้ใช้</label>
+      </div>
+    </div>
+    <div class="row border-bottom m-b-xs">
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="form-group">
+          <span for="firstName">First Name</span>
+          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="user.firstName" placeholder="First Name">
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="form-group">
+          <span for="lastName">Last Name</span>
+          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="user.lastName" placeholder="Last Name">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <label>ที่อยู่</label>
+      </div>
+    </div>
+    <div class="row border-bottom m-b-xs">
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="form-group">
+          <span for="address">Address</span>
+          <input type="text" id="address" name="address" class="form-control" ng-model="user.address.address" placeholder="Address">
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="form-group">
+          <span for="district">District</span>
+          <input type="text" id="district" name="district" class="form-control" ng-model="user.address.district" placeholder="District">
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="form-group">
+          <span for="subdistrict">Sub District</span>
+          <input type="text" id="subdistrict" name="subdistrict" class="form-control" ng-model="user.address.subdistrict" placeholder="Sub District">
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="form-group">
+          <span for="province">Province</span>
+          <input type="text" id="province" name="province" class="form-control" ng-model="user.address.province" placeholder="Province">
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="form-group">
+          <span for="postcode">Post Code</span>
+          <input type="text" id="postcode" name="postcode" class="form-control" autocomplete="false" typeahead="postcode" ng-model="user.address.postcode"
+            typeahead-callback="callback" ng-change="checkAutocomplete(user.address.postcode)" placeholder="Post Code" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <label>ส่วนติดต่อ</label>
+      </div>
+    </div>
+    <div class="row border-bottom m-b-xs">
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="form-group">
+          <span for="email">Email</span>
+          <input type="email" id="email" name="email" class="form-control" ng-model="user.email" placeholder="Email" lowercase/>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="form-group">
+          <span for="tel">Tel</span>
+          <input type="text" id="tel" name="tel" class="form-control" ng-model="user.address.tel" placeholder="Tel" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!--<div class="form-group" ng-show="userForm.password.$error.">
+                  <label>Password Requirements</label>
+                  <progressbar value="requirementsProgress" type="{{requirementsColor}}"><span style="color:white; white-space:nowrap;">{{requirementsProgress}}%</span></progressbar>
+                </div>-->
+        <!--<div class="form-group">
+          <input type="radio" ng-model="role" ng-checked="true" value="user">User
+          <input type="radio" ng-model="role" value="deliver">Deliver
+          <input type="radio" ng-model="role" value="transporter">Transporter
+        </div>-->
+
+        <!-- <div class="min-height-20"></div> -->
+        <div class="form-group">
+          <input type="submit" value="Update" class="btn btn-primary btn-block">
+        </div>
+        <div ng-show="error" class="text-center text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</section>

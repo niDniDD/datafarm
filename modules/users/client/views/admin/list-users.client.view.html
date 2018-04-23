@@ -1,0 +1,161 @@
+<section class="header-height">
+  <div class="page-header">
+    <h1>รายชื่อผู้ใช้งาน</h1>
+  </div>
+
+  <div class="row" style="height:50px">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon btn btn-lg btn-primary hidden-xs show-sm show-md show-lg">Search</span>
+        <span class="input-group-addon show-xs hidden-sm hidden-md hidden-lg" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+        <input type="text" class="form-control" placeholder="อย่างน้อย 5 ตัวอักษร" ng-model="topsearch" ng-change="filter(topsearch)" aria-describedby="sizing-addon3"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="row">
+        <ul class="nav nav-tabs hidden-xs" style="margin-bottom: 1px">
+          <li class="active"><a data-target="#showAllUser" data-toggle="tab" ng-click="clearfilter()">ผู้ใช้ ({{listuser.length || 0}})</a></li>
+          <li><a data-target="#showAllDeliver" data-toggle="tab" ng-click="clearfilter()">คนส่งข้าว ({{listdeli.length || 0}})</a></li>
+          <li><a data-target="#showAllTransport" data-toggle="tab" ng-click="clearfilter()">บริษัทขนส่ง ({{listtran.length || 0}})</a></li>
+        </ul>
+        <!---->
+
+        <ul class="nav nav-tabs show-xs hidden-sm hidden-md hidden-lg">
+          <li class="dropdown dropdownClass">
+            <a class="dropdown-toggle dropdownClass" data-toggle="dropdown" href="#" style="color:#444648">รายการเมนู <span class="caret"></span><span ng-if="menulist"> ({{menulist}})</span></a>
+            <ul class="dropdown-menu">
+              <li class="{{menulist === 'ผู้ใช้' ? 'active' : ' '}}"><a data-target="#showAllUser" data-toggle="tab" ng-click="menulist='ผู้ใช้';clearfilter()">ผู้ใช้ ({{listuser.length || 0}})</a></li>
+              <li><a data-target="#showAllDeliver" data-toggle="tab" ng-click="menulist='คนส่งข้าว';clearfilter()">คนส่งข้าว ({{listdeli.length || 0}})</a></li>
+              <li><a data-target="#showAllTransport" data-toggle="tab" ng-click="menulist='บริษัทขนส่ง';clearfilter()">บริษัทขนส่ง ({{listtran.length || 0}})</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div class="tab-pane active" id="showAllUser">
+          <div class="row form-group headTable hidden-xs">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              <strong class="vertical-align-middle">ชื่อผู้ใช้</strong>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+              <strong class="vertical-align-middle">ที่อยู่</strong>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+              <strong class="vertical-align-middle">เบอร์โทร</strong>
+            </div>
+
+          </div>
+          <div class="row form-group border-bottom" ng-repeat="users in listuser | filter:filterText" ui-sref="admin.user-edit({ userId: users._id })">
+             <div class="col-xs-5 hidden-sm hidden-md hidden-lg">
+              <label>ชื่อผู้ใช้</label>
+            </div> 
+            <div class="col-xs-7 col-sm-3 col-md-3 col-lg-3">
+              <span class="list-group-item-heading word-break" ng-bind="users.displayName"></span>
+            </div>
+            <div class="row hidden-sm hidden-md hidden-lg"></div>
+
+             <div class="col-xs-5 hidden-sm hidden-md hidden-lg">
+              <label>ที่อยู่</label>
+            </div> 
+            <div class="col-xs-7 col-sm-4 col-md-4 col-lg-4">
+              <span class="list-group-item-heading" ng-bind="users.address.address + ' ' + users.address.subdistrict + ' ' + users.address.district + ' ' + users.address.province + ' ' + users.address.postcode"></span>
+            </div>
+            <div class="row hidden-sm hidden-md hidden-lg"></div>
+
+             <div class="col-xs-5 hidden-sm hidden-md hidden-lg">
+              <label>เบอร์โทร</label>
+            </div> 
+            <div class="col-xs-7 col-sm-2 col-md-2 col-lg-2">
+              <span class="list-group-item-heading" ng-bind="users.address.tel"></span>
+            </div>
+            <div class="row hidden-sm hidden-md hidden-lg"></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" id="showAllDeliver">
+          <div class="row form-group headTable hidden-xs">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              <strong class="vertical-align-middle">ชื่อผู้ใช้</strong>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+              <strong class="vertical-align-middle">ที่อยู่</strong>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+              <strong class="vertical-align-middle">เบอร์โทร</strong>
+            </div>
+
+          </div>
+          <div class="row form-group border-bottom" ng-repeat="users in listdeli | filter:filterText" ui-sref="admin.user-edit({ userId: users._id })">
+             <div class="col-xs-5 hidden-sm hidden-md hidden-lg">
+              <label>ชื่อผู้ใช้</label>
+            </div> 
+            <div class="col-xs-7 col-sm-3 col-md-3 col-lg-3">
+              <span class="list-group-item-heading word-break" ng-bind="users.displayName"></span>
+            </div>
+            <div class="row hidden-sm hidden-md hidden-lg"></div>
+
+             <div class="col-xs-5 hidden-sm hidden-md hidden-lg">
+              <label>ที่อยู่</label>
+            </div> 
+            <div class="col-xs-7 col-sm-4 col-md-4 col-lg-4">
+              <span class="list-group-item-heading" ng-bind="users.address.address + ' ' + users.address.subdistrict + ' ' + users.address.district + ' ' + users.address.province + ' ' + users.address.postcode"></span>
+            </div>
+            <div class="row hidden-sm hidden-md hidden-lg"></div>
+
+             <div class="col-xs-5 hidden-sm hidden-md hidden-lg">
+              <label>เบอร์โทร</label>
+            </div> 
+            <div class="col-xs-7 col-sm-2 col-md-2 col-lg-2">
+              <span class="list-group-item-heading" ng-bind="users.address.tel"></span>
+            </div>
+            <div class="row hidden-sm hidden-md hidden-lg"></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" id="showAllTransport">
+          <div class="row form-group headTable hidden-xs">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              <strong class="vertical-align-middle">ชื่อผู้ใช้</strong>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+              <strong class="vertical-align-middle">ที่อยู่</strong>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+              <strong class="vertical-align-middle">เบอร์โทร</strong>
+            </div>
+
+          </div>
+          <div class="row form-group border-bottom" ng-repeat="users in listtran | filter:filterText" ui-sref="admin.user-edit({ userId: users._id })">
+             <div class="col-xs-5 hidden-sm hidden-md hidden-lg">
+              <label>ชื่อผู้ใช้</label>
+            </div> 
+            <div class="col-xs-7 col-sm-3 col-md-3 col-lg-3">
+              <span class="list-group-item-heading word-break" ng-bind="users.displayName"></span>
+            </div>
+            <div class="row hidden-sm hidden-md hidden-lg"></div>
+
+             <div class="col-xs-5 hidden-sm hidden-md hidden-lg">
+              <label>ที่อยู่</label>
+            </div> 
+            <div class="col-xs-7 col-sm-4 col-md-4 col-lg-4">
+              <span class="list-group-item-heading" ng-bind="users.address.address + ' ' + users.address.subdistrict + ' ' + users.address.district + ' ' + users.address.province + ' ' + users.address.postcode"></span>
+            </div>
+            <div class="row hidden-sm hidden-md hidden-lg"></div>
+
+             <div class="col-xs-5 hidden-sm hidden-md hidden-lg">
+              <label>เบอร์โทร</label>
+            </div> 
+            <div class="col-xs-7 col-sm-2 col-md-2 col-lg-2">
+              <span class="list-group-item-heading" ng-bind="users.address.tel"></span>
+            </div>
+            <div class="row hidden-sm hidden-md hidden-lg"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

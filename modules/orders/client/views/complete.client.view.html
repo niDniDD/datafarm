@@ -1,0 +1,104 @@
+<div class="row ">
+  <div class="col-xs-12">
+    <div class="row container-fluid address-container">
+      <h2>ซื้อสินค้าสำเร็จ! คุณจะได้รับสินค้าของภายใน 7 วัน</h2>
+    </div>
+    <div class="row min-height-20"></div>
+    <div class="row container-fluid">
+      <p>คุณ {{vm.complete.user.displayName}}</p>
+    </div>
+    <div class="row container-fluid">
+      <p>ทางเราขอขอบคุณที่ท่านให้ความไว้วางใจในการเลือกซื้อสินค้ากับเรา</p>
+    </div>
+    <div class="row container-fluid">
+      <p>หมายเลขสั่งซื้อสินค้า {{vm.complete.docno}}</p>
+    </div>
+    <div class="row container-fluid">
+      <p>ทางเราจะดำเนินการจัดส่งสินค้าไปยังที่อยู่ที่ท่านได้ให้ไว้</p>
+    </div>
+    <div class="row container-fluid">
+      <p>หากท่านพบปัญหาใด ๆ ในระหว่างการสั่งซื้อสินค้า หรือหลังจากที่ท่านได้รับสินค้าแล้ว ท่านสามารถติดต่อเราได้ตามช่องทางดังต่อไปนี้</p>
+    </div>
+    <div class="row container-fluid">
+      <p>สำหรับข้อมูลเพิ่มเติม กรุณาติดต่อแผนกบริการลูกค้า โทร: 1234567890 (ทุกวัน 9.00 - 18.00 น. ยกเว้นวันหยุดพิเศษ) หลังจากเวลาทำการของศูนย์ช่วยเหลือลูกค้า</p>
+    </div>
+    <div class="row container-fluid">
+      <p>ขอขอบคุณที่ท่านให้ความสนใจและเลือกใช้บริการจากเรา</p>
+    </div>
+    <div class="row container-fluid">
+      <p>ธรรมธุรกิจ : Thamturakit</p>
+    </div>
+  </div>
+</div>
+<section>
+  <div class="row container-fluid">
+    <div class="col-xs-12 address-container">
+      <h4>สรุปยอดการสั่งซื้อสำหรับ {{vm.complete.docno}}, สั่งซื้อสินค้าจำนวน {{vm.allQty}} ชิ้น</h4>
+    </div>
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-12">
+          <h4>ที่อยู่จัดส่ง</h4>
+        </div>
+      </div>
+      <div class="row border-top border-bottom">
+        <div class="col-xs-12">
+          <div class="row">
+            <p>{{vm.complete.shipping.firstName}} {{vm.complete.shipping.lastName}}</p>
+          </div>
+          <div class="row">
+            <p>{{vm.complete.shipping.address}} {{vm.complete.shipping.subdistrict}} {{vm.complete.shipping.district}} {{vm.complete.shipping.province}}
+              {{vm.complete.shipping.postcode}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="row">
+
+        </div>
+        <div class="row" ng-repeat="product in vm.complete.items">
+          <div class="col-xs-2 col-sm-2 col-md-2">
+            <img ng-src="{{product.product.images}}" class="img img-thumbnail">
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <p>{{product.product.name}}</p>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2">
+            <p>{{product.qty}} ชิ้น </p>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 text-right">
+            <p>{{product.amount}} บาท</p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+  </div>
+
+  
+    <div class="row">
+      <div class="col-xs-12 col-md-12 text-right">
+        <p><h4>ราคารวม {{vm.complete.amount}} บาท</h4></p>  
+        <p><h4>ค่าจัดส่ง {{vm.complete.deliveryamount}} บาท</h4></p>                                      
+        <p><h4>ส่วนลด {{vm.complete.discountpromotion}} บาท</h4></p>        
+        <p><h3>ราคาสุทธิ {{vm.complete.totalamount}} บาท</h3></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-md-12">
+        <p><h4>หมายเหตุ : {{vm.complete.remark}}</h4></p>
+      </div>
+    </div>
+ 
+<div class="row text-center">
+  <button class="btn btn-primary" ui-sref="home">กลับสู่หน้าหลัก</button>
+</div>
+</section>
+
+
+
+    

@@ -1,0 +1,60 @@
+.padding-10px {
+    padding:10px;
+}
+.padding-1px{
+    padding:1px;
+}
+
+.img-max-min-width-height-100{
+    max-width:100px;
+    max-height:100px;
+    min-height:100px;
+    min-width:100px;
+}
+
+.float-rigth{
+    float: right;
+}
+
+.min-heigth-100{
+    min-height:100px;    
+}
+
+.font-size26-margin-top3{
+    font-size:26px;
+    margin-top:3px
+}
+
+.margin-left-8-margin-top-20px{
+    margin-left: -8px; 
+    margin-top: -20px
+}
+
+.plus-green{
+    text-colo:#53ff1a;
+}
+.pum-text-center{
+    text-align: center;
+}
+
+.min-heigth-50{
+    min-height:50px;    
+}
+
+.min-heigth-20{
+    min-height:50px;    
+}
+
+.fix-scroll{
+    width: auto;
+    height: 180px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.fix-scrollmodal{
+    width: auto;
+    height: 300px;
+    overflow: scroll;
+    overflow-x: hidden;
+}

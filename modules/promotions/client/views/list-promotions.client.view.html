@@ -1,0 +1,89 @@
+<section class="header-height" ng-init="vm.readProduct()">
+  <div class="page-header">
+    <h1>Promotions
+      <div class="pull-right" ng-hide="!vm.authentication.user" ng-if="(vm.authentication.user.roles[0] == 'admin');">
+        <a class="btn btn-primary" ui-sref="promotions.create">
+          <span>Create</span>
+        </a>
+      </div>
+    </h1>
+  </div>
+  <div class="row hidden-xs show-sm show-md show-lg">
+    <div class="col-md-12">
+      <div class="row form-group alert alert-success">
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>Product</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>Description</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>Discount ($)</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>Discount (%)</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>Free Product</strong>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <strong>Update</strong>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <strong>Delete</strong>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="promotion in vm.promotions">
+    <div class="col-md-12">
+      <div class="row form-group">
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="promotion.product.name"></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="promotion.description"></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="promotion.discount.fixBath"></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="promotion.discount.percen"></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="promotion.freeitem.product.name"></p>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <button type="button" class="btn btn-primary" ng-click="vm.update(promotion)"><span class="glyphicon glyphicon-edit"></span></button>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <button type="button" class="btn btn-danger" ng-click="vm.remove(promotion)"><span class="glyphicon glyphicon-trash"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--ng-click="vm.cliketoview(promotion)"-->
+  <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="promotion in vm.promotions">
+    <div class="col-md-12">
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action">
+          <label>Product Id : </label> <label class="list-group-item-heading" ng-bind="promotion.product.name"></label><br>
+          <label>Description : </label> <label class="list-group-item-heading" ng-bind="promotion.description"></label><br>
+          <label>Discount ($) : </label> <label class="list-group-item-heading" ng-bind="promotion.discount.fixbath"></label><br>
+          <label>Discount (%) : </label> <label class="list-group-item-heading" ng-bind="promotion.discount.percen"></label><br>
+          <label>Free Product : </label> <label class="list-group-item-heading" ng-bind="promotion.freeitem.product.name"></label>
+          <div class="row">
+            <div class="col-xs-10 text-right">
+              <button type="button" class="btn btn-primary" ng-click="vm.update(promotion)"><span class="glyphicon glyphicon-edit"></span></button>
+            </div>
+            <div class="col-xs-1 text-right marLeft">
+              <button type="button" class="btn btn-danger" ng-click="vm.remove(promotion)"><span class="glyphicon glyphicon-trash"></span></button>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

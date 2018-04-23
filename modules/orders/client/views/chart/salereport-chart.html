@@ -1,0 +1,423 @@
+<div class="row page-header headerBorder">
+    <div class="min-heigth-50"></div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <h3 class="text-center" ng-show="startDay && endDay">จากวันที่ {{startDay | date:'dd/MM/yyyy'}} ถึงวันที่ {{endDay | date:'dd/MM/yyyy'}}</h3>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <angular-chart options="options" instance="instance"></angular-chart>
+            <!--<c3chart bindto-id="chart3">
+                <chart-column column-id="x" column-values="{{titles.toString()}}" />
+                <chart-column column-id="data1" column-name="Averages" column-color="red" column-values="{{averages.toString()}}" column-type="spline"
+                />
+                <chart-column column-id="data2" column-name="Sales of days" column-color="green" column-values="{{saleOfDays.toString()}}" column-type="spline"
+                />
+                <chart-axes values-x="x" y="data1,data2" />
+
+                <chart-axis>
+                    <chart-axis-x axis-position="outer-center" axis-label="Number by 10" axis-type="category">
+                        <chart-axis-x-tick tick-rotate="50" />
+                    </chart-axis-x>
+                    <chart-axis-y axis-id="y" axis-position="outer-right" axis-label="" padding-top="100" padding-bottom="0" range-min="0"
+                    />
+                </chart-axis>
+            </c3chart>-->
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <h3 class="text-center">สรุปยอดการขายรายวัน</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading" ng-click="check = !check">
+                    <h4 class="panel-title">
+                        <div class="row" data-toggle="collapse" data-parent="#accordion" href="#date" aria-expanded="true">
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                                <div class="front_profile-color1 margin-bottom-10">
+                                    <strong> ลำดับ </strong>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 text-center">
+                                <div class="front_profile-color1 margin-bottom-10">
+                                    <strong> วันที่ </strong>
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-sm-5 col-md-5 text-center">
+                                <div class="front_profile-color1 margin-bottom-10">
+                                    <strong> ยอดขาย </strong>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 text-center">
+                                <div class="front_profile-color1 margin-bottom-10">
+                                    <strong> PDF </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </h4>
+
+                </div>
+            </div>
+
+            <div id="" class="panel-collapse collapse in fix-scroll" role="tabpanel" aria-labelledby="headingOne">
+                <div class="row" ng-repeat="prod in vm.saleday | orderBy: '-date'">
+                    <div class="col-xs-2 col-sm-2 col-md-2 text-center">
+                        {{$index}}
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 text-right">
+                        {{prod.date}}
+                    </div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 text-center">
+                        {{prod.amount | number:2}} บาท
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <button class="btn btn-success fa fa-download" data-toggle="modal" data-target="#myReport" ng-click="sendDate(prod.date);hidedate(prod.date)"></button>
+                    </div>
+                    <div class="min-heigth-20"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading" ng-click="check = !check">
+                    <h4 class="panel-title">
+                        <div class="row" data-toggle="collapse" data-parent="#accordion" href="#date" aria-expanded="true">
+                            <div class="col-xs-6 col-sm-6 col-md-6 text-center">
+                                <div role="button" aria-controls="collapseOne">
+                                    <div class="front_profile-color2 margin-bottom-10">
+                                        <strong>รายละเอียด</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                                <div class="front_profile-color1 margin-bottom-10">
+                                    <strong> มูลค่า </strong>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+
+                            </div>
+                        </div>
+                    </h4>
+
+                </div>
+            </div>
+            <div id="" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 text-center">
+                        ยอดปัจจุบัน
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-right" ng-repeat="prod in vm.saleday | orderBy: '-date' | limitTo: 1">
+                        {{prod.amount | number:2}} บาท
+                    </div>
+                    <div class="min-heigth-20"></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 text-center">
+                        ยอดต่ำสุด
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                        {{vm.min | number:2}} บาท
+                    </div>
+                    <div class="min-heigth-20"></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 text-center">
+                        ยอดสูงสุด
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                        {{vm.max | number:2}} บาท
+                    </div>
+                    <div class="min-heigth-20"></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 text-center">
+                        ค่าเฉลี่ย
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                        {{vm.avg | number:2}} บาท
+                    </div>
+                    <div class="min-heigth-20"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6"></div>
+    </div>
+    <div class="min-heigth-50"></div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <h3 class="text-center">สรุปยอดการขายรายสินค้า</h3>
+        </div>
+        <div class="min-heigth-20"></div>
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <div class="row">
+                <div class="hidden-xs hidden-sm col-md-3"></div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" ng-click="checked = !checked">
+                                <h4 class="panel-title">
+                                    <div class="row" data-toggle="collapse" data-parent="#accordion" href="#prod" aria-expanded="true">
+                                        <!--<div class="col-xs-2 col-sm-2 col-md-2 text-center">
+                                            <div role="button" aria-controls="collapseOne">
+                                                <div class="front_profile-color2 margin-bottom-10">
+                                                    <strong>รูป</strong>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                                        <div class="col-xs-5 col-sm-5 col-md-5">
+                                            <div class="front_profile-color1 margin-bottom-10">
+                                                <strong> ชื่อสินค้า </strong>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 text-center">
+                                            <div class="front_profile-color1 margin-bottom-10">
+                                                <strong> จำนวน </strong>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3 col-sm-3 col-md-3 text-center">
+                                            <div class="front_profile-color1 margin-bottom-10">
+                                                <strong> มูลค่า </strong>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 text-center">
+                                            <div class="front_profile-color1 margin-bottom-10">
+                                                <strong> PDF </strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="panel-collapse collapse in fix-scroll" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="row" ng-repeat="item in vm.saleprod | orderBy: '-amount'">
+                                <!--<div class="col-xs-2 col-sm-2 col-md-2 text-center">
+                                    <img src="{{item.item.product.images}}" alt="" width="80%">
+                                </div>-->
+                                <div class="col-xs-5 col-sm-5 col-md-5">
+                                    {{item.item.product.name}}
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 text-center">
+                                    {{item.qty}}
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3 text-right">
+                                    {{item.amount | number:2}} บาท
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 text-center">
+                                    <button class="btn btn-success fa fa-download" data-toggle="modal" data-target="#myReport" ng-click="sendprod(item.item.product.name);hideprod();showname()"></button>
+                                </div>
+                                <div class="min-heigth-20"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-xs hidden-sm col-md-3"></div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 ">
+                    <div zingchart id="chart-1" zc-json="myJson" zc-width="100%" zc-height="300px"></div>
+                    <!--<div id="pie" dx-pie-chart="chartOptions"></div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--report-->
+    <div class="container">
+        <div class="modal fade" id="myReport" role="dialog">
+            <div class="modal-dialog modal-dialogreport">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-titlev text-center">บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h4>
+                    </div>
+                    <div class="modal-body hidden-xs show-sm show-md show-lg">
+                        <div class="row">
+                            <div class="col-sm-8">
+
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="pull-right">
+                                    <a href="javascript:exportPdf()"><i class="fa fa-download fa-2x" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" id="pdf">
+                            <div class="col-lg-12">
+                                <div class="wrapper wrapper-content animated fadeInRight">
+                                    <div class="ibox-content p-xl">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <address ng-hide="hidediv">
+                                                    <h5><img width="17%">บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
+                                                    <strong>รายงานขาย - เรียงตามวันที่เอกสาร (แบบแจกแจง)</strong>
+                                                    <p ng-show="startDay && endDay"><img width="8%">จากวันที่ {{startDay | date:'dd/MM/yyyy'}} ถึงวันที่
+                                                        {{endDay | date:'dd/MM/yyyy'}}</p>
+                                                </address>
+                                                <address ng-show="showdiv">
+                                                    <h5><img width="17%">บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
+                                                    <strong>รายงานขาย - เรียงตามวันที่เอกสาร (แบบแจกแจง)</strong>
+                                                    <p ng-show="startDay && endDay"><img width="26%">วันที่ {{dayTime}}</p>
+                                                </address>
+                                            </div>
+                                            <div class="col-sm-4">
+
+                                            </div>
+                                        </div>
+                                        <div class="row text-center">
+                                            <div>
+                                                <address ng-show="shownameprod">
+                                                    <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
+                                                    <strong>รายงานขาย - เรียงตามรายการสินค้า</strong>
+                                                    <p>จากวันที่ {{filtertime[0].created | date: 'dd/MM/yyyy'}} ถึงวันที่ {{
+                                                        filtertime[filtertime.length-1].created | date: 'dd/MM/yyyy'}}</p>
+                                                    <strong>{{itmSearchprod}}</strong>
+                                                </address>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive m-t ">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>วันที่สั่งซื้อ</th>
+                                                        <th>เลขที่สั่งซื้อ</th>
+                                                        <th>วันที่ใบแจ้งหนี้</th>
+                                                        <th>เลขที่ใบแจ้งหนี้</th>
+                                                        <th>ชื่อลูกค้า</th>
+                                                        <th colspan="2"><img width="25%">ชื่อคนส่งข้าว</th>
+                                                        <th>จำนวนเงิน</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="2"><img width="25%">ชื่อสินค้า</th>
+                                                        <th colspan="3"></th>
+                                                        <th>จำนวนสั่งซื้อ</th>
+                                                        <th>ราคาต่อหน่วย</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody ng-repeat="order in vm.listOrders | filter: {created : itmSearch} | filter: {items: {product: {name : itmSearchprod}}}">
+                                                    <tr>
+                                                        <td>{{order.created.substring(0, 10) | date:'dd/MM/yyyy'}}</td>
+                                                        <td class="text-right">{{order.docno}}</td>
+                                                        <td class="text-center">-</td>
+                                                        <td class="text-center">{{order.refdoc || '-'}}</td>
+                                                        <td>{{order.user.displayName}}</td>
+                                                        <td colspan="2">{{order.namedeliver.displayName}}</td>
+                                                        <td class="text-right">{{vm.getsumamount(order) | number:2}}</td>
+                                                    </tr>
+                                                    <tr ng-repeat="itm in order.items | filter: {product: {name: itmSearchprod}}">
+                                                        <td colspan="2">{{itm.product.name}}</td>
+                                                        <td colspan="3"></td>
+                                                        <td class="text-right">{{itm.qty}}</td>
+                                                        <td class="text-right">{{(itm.product.retailerprice || 0) | number:2}}</td>
+                                                        <td class="text-right">{{(itm.product.retailerprice || 0) * (itm.qty || 0) | number:2}}</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tr>
+                                                    <td colspan="6"></td>
+                                                    <td>รายการรวม</td>
+                                                    <td class="text-right">{{totalAmountResult ? totalAmountResult :totalAmountResultdate ? totalAmountResultdate
+                                                        : vm.sumallamount() | number:2}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body show-xs show-sm hidden-md hidden-lg">
+                        <div class="row">
+                            <div class="col-sm-4">
+
+                            </div>
+                            <div class="col-sm-5">
+                                <address ng-hide="hidediv" class="text-center">
+                                    <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
+                                    <strong>รายงานขาย - เรียงตามวันที่เอกสาร</strong></br>
+                                    <strong>(แบบแจกแจง)</strong>
+                                    <p ng-show="startDay && endDay"><img width="8%">จากวันที่ {{startDay | date:'dd/MM/yyyy'}} ถึงวันที่ {{endDay | date:'dd/MM/yyyy'}}</p>
+                                </address>
+                                <address ng-show="showdiv" class="text-center">
+                                    <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
+                                    <strong>รายงานขาย - เรียงตามวันที่เอกสาร</strong></br>
+                                    <strong>(แบบแจกแจง)</strong>
+                                    <p ng-show="startDay && endDay">วันที่ {{dayTime}}</p>
+                                </address>
+                            </div>
+                            <div class="col-sm-4">
+
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div>
+                                <address ng-show="shownameprod">
+                                    <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
+                                    <strong>รายงานขาย - เรียงตามรายการสินค้า</strong>
+                                    <p>จากวันที่ {{filtertime[0].created | date: 'dd/MM/yyyy'}} ถึงวันที่ {{ filtertime[filtertime.length-1].created
+                                        | date: 'dd/MM/yyyy'}}</p>
+                                    <strong>{{itmSearchprod}}</strong>
+                                </address>
+                            </div>
+                        </div>
+                        <div class="table-responsive m-t">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>วันที่สั่งซื้อ</th>
+                                        <th>เลขที่สั่งซื้อ</th>
+                                        <!--<th>วันที่ใบแจ้งหนี้</th>-->
+                                        <th>เลขที่ใบแจ้งหนี้</th>
+                                        <th>ชื่อลูกค้า</th>
+                                        <th colspan="2"><img width="25%">ชื่อคนส่งข้าว</th>
+                                        <th>จำนวนเงิน</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2"><img width="25%">ชื่อสินค้า</th>
+                                        <th colspan="2"></th>
+                                        <th>จำนวนสั่งซื้อ</th>
+                                        <th>ราคาต่อหน่วย</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="order in vm.listOrders | filter: {created : itmSearch} | filter: {items: {product: {name : itmSearchprod}}}">
+                                    <tr>
+                                        <td>{{order.created | date:'dd/MM/yyyy'}}</td>
+                                        <td class="text-right">{{order.docno}}</td>
+                                        <!--<td class="text-center">-</td>-->
+                                        <td class="text-center">{{order.refdoc || '-'}}</td>
+                                        <td>{{order.user.displayName}}</td>
+                                        <td colspan="2">{{order.namedeliver.displayName}}</td>
+                                        <td class="text-right">{{vm.getsumamount(order) | number:2}}</td>
+                                    </tr>
+                                    <tr ng-repeat="itm in order.items | filter: {product: {name: itmSearchprod}}">
+                                        <td colspan="2">{{itm.product.name}}</td>
+                                        <td colspan="2"></td>
+                                        <td class="text-right">{{itm.qty}}</td>
+                                        <td class="text-right">{{(itm.product.retailerprice || 0) | number:2}}</td>
+                                        <td class="text-right">{{(itm.product.retailerprice || 0) * (itm.qty || 0) | number:2}}</td>
+                                    </tr>
+                                </tbody>
+                                <tr>
+                                    <td colspan="5"></td>
+                                    <td>รายการรวม</td>
+                                    <td class="text-right">{{totalAmountResult ? totalAmountResult :totalAmountResultdate ? totalAmountResultdate
+                                        : vm.sumallamount() | number:2}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">ปิด</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
